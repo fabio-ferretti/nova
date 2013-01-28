@@ -1,0 +1,464 @@
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza 9d9a6f27-a01e-4619-9c95-b0ec8d4a5c99 run 
+
+Istanza 9d9a6f27-a01e-4619-9c95-b0ec8d4a5c99 run 
+
+Istanza c8462f0d-2e76-4d77-8fe1-1309c0869d70 run 
+
+Istanza c8462f0d-2e76-4d77-8fe1-1309c0869d70 run 
+
+Istanza 414977c8-8e79-445a-9073-cd27bae9b37d run 
+
+Istanza 414977c8-8e79-445a-9073-cd27bae9b37d run 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza 158e23ef-8ea7-4092-b9e3-2683783e5156 run 
+
+Istanza 158e23ef-8ea7-4092-b9e3-2683783e5156 run 
+
+Istanza e89fdacf-4d30-4b00-922e-235f88320c48 run 
+
+Istanza e89fdacf-4d30-4b00-922e-235f88320c48 run 
+
+Istanza fb11afc1-5b16-43a2-9ba3-93de4e1758d2 run 
+
+Istanza fb11afc1-5b16-43a2-9ba3-93de4e1758d2 run 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza 527fbc3b-1e3e-4832-b5c0-fd1c6851f4ff run 
+
+Istanza 527fbc3b-1e3e-4832-b5c0-fd1c6851f4ff run 
+
+Istanza 533799bb-7fd7-4d5e-b676-e9d23245edec run 
+
+Istanza 533799bb-7fd7-4d5e-b676-e9d23245edec run 
+
+Istanza 533799bb-7fd7-4d5e-b676-e9d23245edec terminate 
+
+Istanza 533799bb-7fd7-4d5e-b676-e9d23245edec delete 
+
+Istanza 533799bb-7fd7-4d5e-b676-e9d23245edec shutdown 
+
+Istanza 527fbc3b-1e3e-4832-b5c0-fd1c6851f4ff terminate 
+
+Istanza 527fbc3b-1e3e-4832-b5c0-fd1c6851f4ff delete 
+
+Istanza 527fbc3b-1e3e-4832-b5c0-fd1c6851f4ff shutdown 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza a1e39d60-739c-4db8-9220-fb9074ee1508 run 
+
+Istanza a1e39d60-739c-4db8-9220-fb9074ee1508 run 
+
+Istanza 2277c0da-ce22-4d2b-b281-f40cb1da3327 run 
+
+Istanza 2277c0da-ce22-4d2b-b281-f40cb1da3327 run 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza 343283a3-92eb-450a-b276-f9806c73ae49 run 
+
+Istanza 343283a3-92eb-450a-b276-f9806c73ae49 run 
+
+Istanza 2c0cff42-6d9d-4a86-b277-f38c3b9de3d6 run 
+
+Istanza 2c0cff42-6d9d-4a86-b277-f38c3b9de3d6 run 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza 18ad35f6-729a-4818-8e0f-5a078ecc2d61 run 
+
+Istanza 18ad35f6-729a-4818-8e0f-5a078ecc2d61 run 
+
+Istanza 5924b832-70af-48d0-9753-742552654be4 run 
+
+Istanza 5924b832-70af-48d0-9753-742552654be4 run 
+
+Istanza 5924b832-70af-48d0-9753-742552654be4 terminate 
+
+Istanza 5924b832-70af-48d0-9753-742552654be4 delete 
+
+Istanza 5924b832-70af-48d0-9753-742552654be4 shutdown 
+
+Istanza f0f77811-7e96-45f5-a23d-2079d03e6829 run 
+
+Istanza f0f77811-7e96-45f5-a23d-2079d03e6829 run 
+
+Istanza f0f77811-7e96-45f5-a23d-2079d03e6829 terminate 
+
+Istanza f0f77811-7e96-45f5-a23d-2079d03e6829 delete 
+
+Istanza f0f77811-7e96-45f5-a23d-2079d03e6829 shutdown 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza 4e1e721c-ace4-49f4-9962-9306c8c88982 run 
+
+Istanza 4e1e721c-ace4-49f4-9962-9306c8c88982 run 
+
+Istanza 67b95fce-e9f3-4785-983b-1815e54dc58b run 
+
+Istanza 67b95fce-e9f3-4785-983b-1815e54dc58b run 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza f3bc65e4-d283-4960-bba9-be588ed6f86c run 
+
+Istanza f3bc65e4-d283-4960-bba9-be588ed6f86c run 
+
+Istanza 28c85f3f-76da-4721-bc54-e78f1fd77ce5 run 
+
+Istanza 28c85f3f-76da-4721-bc54-e78f1fd77ce5 run 
+
+Istanza 28c85f3f-76da-4721-bc54-e78f1fd77ce5 terminate 
+
+Istanza 28c85f3f-76da-4721-bc54-e78f1fd77ce5 delete 
+
+Istanza 28c85f3f-76da-4721-bc54-e78f1fd77ce5 shutdown 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza 4aefb5b1-754e-41af-8fc7-ada465740374 run 
+
+Istanza 4aefb5b1-754e-41af-8fc7-ada465740374 run 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza baf6fc2c-e6a7-4d74-9e43-12ed1295f0a1 run 
+
+Istanza baf6fc2c-e6a7-4d74-9e43-12ed1295f0a1 run 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza 72d06abc-2d4c-4c45-b910-e1509a63f00f run 
+
+Istanza 72d06abc-2d4c-4c45-b910-e1509a63f00f run 
+
+Istanza 9928a7ba-bcc0-4b61-a9de-72d8b4025cb8 run 
+
+Istanza 9928a7ba-bcc0-4b61-a9de-72d8b4025cb8 run 
+
+Istanza 9928a7ba-bcc0-4b61-a9de-72d8b4025cb8 terminate 
+
+Istanza 9928a7ba-bcc0-4b61-a9de-72d8b4025cb8 delete 
+
+Istanza 9928a7ba-bcc0-4b61-a9de-72d8b4025cb8 shutdown 
+
+Istanza 020c9a93-b2f5-45e5-8b99-1e56a487d6e4 run 
+
+Istanza 020c9a93-b2f5-45e5-8b99-1e56a487d6e4 run 
+
+Istanza 020c9a93-b2f5-45e5-8b99-1e56a487d6e4 terminate 
+
+Istanza 020c9a93-b2f5-45e5-8b99-1e56a487d6e4 delete 
+
+Istanza 020c9a93-b2f5-45e5-8b99-1e56a487d6e4 shutdown 
+
+Istanza 761bd5a1-b6b3-4ae4-beb9-fe6caf40a9ef run 
+
+Istanza 761bd5a1-b6b3-4ae4-beb9-fe6caf40a9ef run 
+
+Istanza 761bd5a1-b6b3-4ae4-beb9-fe6caf40a9ef terminate 
+
+Istanza 761bd5a1-b6b3-4ae4-beb9-fe6caf40a9ef delete 
+
+Istanza 761bd5a1-b6b3-4ae4-beb9-fe6caf40a9ef shutdown 
+
+Istanza 73688641-0d99-4c23-af2f-691518c3f6e6 terminate 
+
+Istanza 73688641-0d99-4c23-af2f-691518c3f6e6 delete 
+
+Istanza 73688641-0d99-4c23-af2f-691518c3f6e6 shutdown 
+
+Istanza 73688641-0d99-4c23-af2f-691518c3f6e6 terminate 
+
+Istanza 73688641-0d99-4c23-af2f-691518c3f6e6 delete 
+
+Istanza 73688641-0d99-4c23-af2f-691518c3f6e6 shutdown 
+
+Istanza c65fe963-a828-423b-a47b-b4a7462a5051 terminate 
+
+Istanza c65fe963-a828-423b-a47b-b4a7462a5051 delete 
+
+Istanza c65fe963-a828-423b-a47b-b4a7462a5051 shutdown 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza 3279c37f-6738-4b0f-a651-42c6a89930eb run 
+
+Istanza 3279c37f-6738-4b0f-a651-42c6a89930eb run 
+
+Istanza 335b530a-8372-48d8-8bde-721b620106fa run 
+
+Istanza 335b530a-8372-48d8-8bde-721b620106fa run 
+
+Istanza 8c8bff04-e67d-49d1-a6b8-e594e7877376 run 
+
+Istanza 8c8bff04-e67d-49d1-a6b8-e594e7877376 run 
+
+Istanza 8c8bff04-e67d-49d1-a6b8-e594e7877376 terminate 
+
+Istanza 8c8bff04-e67d-49d1-a6b8-e594e7877376 delete 
+
+Istanza 8c8bff04-e67d-49d1-a6b8-e594e7877376 shutdown 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza a360d1f7-67a8-4e00-a140-c3a644a0fcc4 run 
+
+Istanza a360d1f7-67a8-4e00-a140-c3a644a0fcc4 run 
+
+Istanza cc4b4ccd-e684-4676-bc4b-b644c073d5cb run 
+
+Istanza cc4b4ccd-e684-4676-bc4b-b644c073d5cb run 
+
+Istanza b9e3ca6a-c5db-4d69-8dc1-610cffb97419 run 
+
+Istanza b9e3ca6a-c5db-4d69-8dc1-610cffb97419 run 
+
+Istanza b9e3ca6a-c5db-4d69-8dc1-610cffb97419 terminate 
+
+Istanza b9e3ca6a-c5db-4d69-8dc1-610cffb97419 delete 
+
+Istanza b9e3ca6a-c5db-4d69-8dc1-610cffb97419 shutdown 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza d92abdb1-8481-4e58-af14-7fed7c00a330 run 
+
+Istanza d92abdb1-8481-4e58-af14-7fed7c00a330 run 
+
+Istanza 23be3f0c-3c98-45ef-bc99-61eb213f5fa4 run 
+
+Istanza 23be3f0c-3c98-45ef-bc99-61eb213f5fa4 run 
+
+Istanza 8880ad44-2056-4d3f-b859-325fe01715ad run 
+
+Istanza 8880ad44-2056-4d3f-b859-325fe01715ad run 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza a4818d90-e585-4419-8bfe-c85ba6d8cb27 run 
+
+Istanza a4818d90-e585-4419-8bfe-c85ba6d8cb27 run 
+
+Istanza 52fcab95-7865-4280-ae88-70132f4fc1ec run 
+
+Istanza 52fcab95-7865-4280-ae88-70132f4fc1ec run 
+
+Istanza 0eb86029-2183-467f-bddf-caaf3fa84fc0 run 
+
+Istanza 0eb86029-2183-467f-bddf-caaf3fa84fc0 run 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza 93f8a53c-3ffc-4fed-9f1e-53271067a149 run 
+
+Istanza 93f8a53c-3ffc-4fed-9f1e-53271067a149 run 
+
+Istanza dba51bc1-2f34-45f0-a997-439862124bd3 run 
+
+Istanza dba51bc1-2f34-45f0-a997-439862124bd3 run 
+
+Istanza 63b01687-1d83-407f-9127-c349488e6eed run 
+
+Istanza 63b01687-1d83-407f-9127-c349488e6eed run 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza 6b4c666c-ddc5-40ca-9b45-a17abd491974 run 
+
+Istanza 6b4c666c-ddc5-40ca-9b45-a17abd491974 run 
+
+Istanza 973e7e19-3b63-45b3-af2c-e719805e14b2 run 
+
+Istanza 973e7e19-3b63-45b3-af2c-e719805e14b2 run 
+
+Istanza 9080a3d8-0ff2-4c87-9068-95800e0e52e1 run 
+
+Istanza 9080a3d8-0ff2-4c87-9068-95800e0e52e1 run 
+
+Istanza 9080a3d8-0ff2-4c87-9068-95800e0e52e1 terminate 
+
+Istanza 9080a3d8-0ff2-4c87-9068-95800e0e52e1 delete 
+
+Istanza 9080a3d8-0ff2-4c87-9068-95800e0e52e1 shutdown 
+
+Istanza 973e7e19-3b63-45b3-af2c-e719805e14b2 terminate 
+
+Istanza 973e7e19-3b63-45b3-af2c-e719805e14b2 delete 
+
+Istanza 973e7e19-3b63-45b3-af2c-e719805e14b2 shutdown 
+
+Istanza 6b4c666c-ddc5-40ca-9b45-a17abd491974 terminate 
+
+Istanza 6b4c666c-ddc5-40ca-9b45-a17abd491974 delete 
+
+Istanza 6b4c666c-ddc5-40ca-9b45-a17abd491974 shutdown 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza 6e873244-6e7c-4f24-b9f6-9a652d59052e run 
+
+Istanza 6e873244-6e7c-4f24-b9f6-9a652d59052e run 
+
+Istanza 82097836-485a-4dab-ac96-d20f61d551bb run 
+
+Istanza 82097836-485a-4dab-ac96-d20f61d551bb run 
+
+init_host 
+
+pre node_information 
+
+pre listen_sleep_on_lan 
+
+post listen_sleep_on_lan 
+
+Istanza 4a67e710-b4bb-4272-bf19-21723e53edfc run 
+
+Istanza 4a67e710-b4bb-4272-bf19-21723e53edfc run 
+
+Istanza 5d2c995e-d0e6-4392-9e89-205707a1c71b run 
+
+Istanza 5d2c995e-d0e6-4392-9e89-205707a1c71b run 
+
+Istanza 5d2c995e-d0e6-4392-9e89-205707a1c71b terminate 
+
+Istanza 5d2c995e-d0e6-4392-9e89-205707a1c71b delete 
+
+Istanza 5d2c995e-d0e6-4392-9e89-205707a1c71b shutdown 
+
+Istanza 4a67e710-b4bb-4272-bf19-21723e53edfc terminate 
+
+Istanza 4a67e710-b4bb-4272-bf19-21723e53edfc delete 
+
+Istanza 4a67e710-b4bb-4272-bf19-21723e53edfc shutdown 

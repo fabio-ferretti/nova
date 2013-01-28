@@ -1,0 +1,207 @@
+'''
+@author: Fabio Ferretti
+'''
+
+from nova import db
+from nova import flags
+from nova import exception
+from nova.openstack.common import cfg
+from nova.scheduler import driver
+from nova.scheduler import chance
+from nova import utils
+from isclustercontroller import is_cluster_controller
+from nodestate import is_node_suspended
+from nodestate import is_node_active
+from nodestate import get_macaddress_node_suspended
+from wakeonlan import wake_on_lan
+from changenodestate import change_node_state
+
+import time
+
+#from vmtracker import set_vm_information
+#from suspendednodemanager import enable_suspended_node
+
+green_scheduler_opts = [
+    cfg.IntOpt("max_cores",
+               default=3,
+               help="maximum number of instance cores to allow per host"),
+    cfg.IntOpt("max_gigabytes",
+               default=15000,
+               help="maximum number of volume gigabytes to allow per host"),
+    cfg.IntOpt("max_networks",
+               default=1000,
+               help="maximum number of networks to allow per host"),
+    cfg.BoolOpt('skip_isolated_core_check',
+                default=True,
+                help='Allow overcommitting vcpus on isolated hosts'),
+    ]
+
+FLAGS = flags.FLAGS
+FLAGS.register_opts(green_scheduler_opts)
+
+
+class GreenScheduler(chance.ChanceScheduler):
+    """Implements Naive Scheduler that tries to find least loaded host."""
+
+    out = ''.join([FLAGS.output_path, "output"])
+    out_file = open(out,"a")
+    out_file.write("\nGreenScheduler Active \n")
+    out_file.close()
+
+    def _schedule_instance(self, context, instance_opts, *_args, **_kwargs):
+        """Picks a host that is up and has the fewest running instances."""
+        elevated = context.elevated()
+
+        availability_zone = instance_opts.get('availability_zone')
+
+        zone, host = FLAGS.default_schedule_zone, None
+        if availability_zone:
+            zone, _x, host = availability_zone.partition(':')
+
+        if host and context.is_admin:
+            service = db.service_get_by_args(elevated, host, 'nova-compute')
+            if not utils.service_is_up(service):
+                raise exception.WillNotSchedule(host=host)
+            return host
+
+        #Metodo che restituisce tutti i compute node attivi
+        #TODO creare una lista dei compute node ad-hoc in stand-by da riattivare su necessita
+        #Get all compute services sorted by instance count.
+        #returns: a list of (Service, instance_count) tuples.
+        results = db.service_get_all_compute_sorted_desc(elevated)
+	out = open("/home/fabioferretti/scheduler_output","w")
+	out.write("Result 1)\n")
+	#i = 0
+	#while i < len(results):
+	out.write("\n%s" % len(results))
+	#	i = i + 1
+	out.close()
+        in_isolation = instance_opts['image_ref'] in FLAGS.isolated_images
+        check_cores = not in_isolation or not FLAGS.skip_isolated_core_check
+        if zone:
+            results = [(service, cores) for (service, cores) in results
+                       if service['availability_zone'] == zone]
+	out = open("/home/fabioferretti/scheduler_output","a")
+	out.write("Result 2)\n")
+	#i = 0
+	#while i < len(results):
+	#out.write("\n%s" % results[i])
+	out.write("\n%s" % len(results))
+	#	i = i +1
+	out.close()
+        i = 0
+        ordered_results = []
+        for result in results:
+            (service, instance_cores) = result
+            if is_cluster_controller(service['host']):
+                ordered_results.append(results[i])
+                del results[i]
+                ordered_results = ordered_results + results
+                break
+            i = i + 1  
+        #Ciclo su tutti i compute node trovati
+        for result in ordered_results:
+            (service, instance_cores) = result
+            if in_isolation and service['host'] not in FLAGS.isolated_hosts:
+                # isolated images run on isolated hosts
+                continue
+            if service['host'] in FLAGS.isolated_hosts and not in_isolation:
+                # images that aren't isolated only run on general hosts
+                continue
+            #Controllo se i core gia occupati piu quelli che verranno occupati con la VM
+            #supero la capacita massima del nodo
+            #TODO MODIFICARE LA CAPACITA MASSIMA al 70 per cento
+            if not (check_cores and instance_cores + instance_opts['vcpus'] > FLAGS.max_cores):
+                #controllo che il nodo non sia sospeso
+                if is_node_suspended(service['host']):
+                    mac = get_macaddress_node_suspended(service['host'])
+                    wake_on_lan(mac)
+                    #TODO modificare con uno scambio di messaggi
+                    time.sleep(10)
+                    #se il nodo non e' attivo cambio il suo stato in active
+                    if is_node_active(service['host']) == False:
+                        change_node_state(service['host'], "active")
+                    return service['host']
+                else:
+                    if utils.service_is_up(service) and not service['disabled']:
+                        #se il nodo nnon e' attivo cambio il suo stato in active
+                        if is_node_active(service['host']) == False:
+                            change_node_state(service['host'], "active")
+                        return service['host']
+        msg = _("Is the appropriate service running?")
+        raise exception.NoValidHost(reason=msg)
+        
+    def schedule_run_instance(self, context, request_spec, *_args, **_kwargs):
+        num_instances = request_spec.get('num_instances', 1)
+        instances = []
+        #Grazie ad xrange cicla num parte da 0 e arriva a num_instances-1
+        for num in xrange(num_instances):
+            host = self._schedule_instance(context, 
+                    request_spec['instance_properties'], *_args, **_kwargs)
+            request_spec['instance_properties']['launch_index'] = num
+            instance_ref = self.create_instance_db_entry(context, 
+                    request_spec)
+            driver.cast_to_compute_host(context, host, 'run_instance', 
+                    instance_uuid=instance_ref['uuid'], **_kwargs)
+            instances.append(driver.encode_instance(instance_ref))
+            # So if we loop around, create_instance_db_entry will actually
+            # create a new entry, instead of assume it's been created
+            # already
+            del request_spec['instance_properties']['uuid']
+            
+            #Chiamo la funzione per aggiornare/creare le informazioni sulla VM che deve essere messa in esecuzione 
+            #set_vm_information(instance_ref, context, "information")
+            
+        return instances
+
+    def schedule_create_volume(self, context, volume_id, *_args, **_kwargs):
+        """Picks a host that is up and has the fewest volumes."""
+        elevated = context.elevated()
+        output = ''.join([FLAGS.list_nodes_path, "output"])
+        out_file = open(output,"a")
+        out_file.write("\nElevated scv --> %s \n" % elevated)
+        out_file.close()
+
+        volume_ref = db.volume_get(context, volume_id)
+        out_file = open(output,"a")
+        out_file.write("\nVolume Ref scv --> %s \n" % volume_ref)
+        out_file.close()
+        
+        availability_zone = volume_ref.get('availability_zone')
+        out_file = open(output,"a")
+        out_file.write("\nAvailability Zone scv --> %s \n" % availability_zone)
+        out_file.close()
+
+        zone, host = None, None
+        if availability_zone:
+            zone, _x, host = availability_zone.partition(':')
+        if host and context.is_admin:
+            service = db.service_get_by_args(elevated, host, 'nova-volume')
+            if not utils.service_is_up(service):
+                raise exception.WillNotSchedule(host=host)
+            driver.cast_to_volume_host(context, host, 'create_volume',
+                    volume_id=volume_id, **_kwargs)
+            return None
+
+        results = db.service_get_all_volume_sorted(elevated)
+        out_file = open(output,"a")
+        out_file.write("\nResults scv --> %s \n" % results)
+        out_file.close()
+        
+        if zone:
+            results = [(service, gigs) for (service, gigs) in results
+                       if service['availability_zone'] == zone]
+        for result in results:
+            (service, volume_gigabytes) = result
+            if volume_gigabytes + volume_ref['size'] > FLAGS.max_gigabytes:
+                msg = _("Not enough allocatable volume gigabytes remaining")
+                raise exception.NoValidHost(reason=msg)
+            if utils.service_is_up(service) and not service['disabled']:
+                driver.cast_to_volume_host(context, service['host'],
+                        'create_volume', volume_id=volume_id, **_kwargs)
+                return None
+            out_file = open(output,"a")
+            out_file.write("\nResult scv --> %s \n" % result)
+            out_file.close()
+        msg = _("Is the appropriate service running?")
+        raise exception.NoValidHost(reason=msg)

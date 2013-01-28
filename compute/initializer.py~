@@ -1,0 +1,128 @@
+'''
+@author: Fabio Ferretti
+'''
+
+from nova import db
+from nova import flags
+from nova.openstack.common import cfg
+from getmacaddress import get_mac_address
+from nova.scheduler.nodestate import is_node_active
+from nova.scheduler.changenodestate import change_node_state
+
+import socket
+import sleeponlan
+import os
+
+initializer_opts = [                
+    cfg.StrOpt('cluster_ip',
+        default='$cluster_ip',
+        help='indirizzo ip del cluster controller'),
+    cfg.BoolOpt('wakeable',
+        default='$wakeable',
+        help='indica se il nodo supporta il wake on lan'),
+    cfg.StrOpt('output_path',
+        default='$output_path',
+        help='indica il path dove vengono scritti tutti i file di output'),
+    cfg.StrOpt('list_nodes_path',
+        default='$list_nodes_path',
+        help='indica il path dove si trova la lista dei nodi nel sistema')
+    ]
+    
+FLAGS = flags.FLAGS
+FLAGS.register_opts(initializer_opts) 
+
+
+def node_informations(host, context):
+
+    try:
+    
+        if FLAGS.my_ip == FLAGS.cluster_ip:
+            #Sta eseguendo il CLUSTER CONTROLLER
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            sock.bind(('',5386))
+            buffersize = 256
+            fpid = os.fork()
+            if fpid!=0:
+                #inserisco i dati del cluster controller nel sistema
+                path_nodes = ''.join([FLAGS.list_nodes_path, "nodes"])
+                out_file = open(path_nodes,"w")
+                out_file.write("%s" % host)
+                out_file.write(" ")
+                out_file.write("cluster")
+                out_file.write(" ")
+                out_file.write("idle")
+                out_file.write(" ")
+                out_file.write("n")
+                out_file.write(" ")
+                out_file.write("%s" % get_mac_address(FLAGS.flat_interface))
+                out_file.write(" ")
+                out_file.write("%s" % FLAGS.my_ip)
+                out_file.write("\n")
+                out_file.close()    
+                while 1:
+                    #nome host
+                    data_received1 = sock.recvfrom(buffersize)
+                    nome_host = data_received1[0]
+
+                    #tipo host
+                    data_received2 = sock.recvfrom(buffersize)
+                    tipo_host = data_received2[0]
+
+                    #stato host
+                    data_received3 = sock.recvfrom(buffersize)
+                    stato_host = data_received3[0]
+                    
+                    #host wakeable
+                    data_received4 = sock.recvfrom(buffersize)
+                    wakeable_host = data_received4[0]
+
+                    #macaddress host
+                    data_received5 = sock.recvfrom(buffersize)
+                    macaddress_host = data_received5[0]
+
+                    #ipaddress host
+                    data_received6 = sock.recvfrom(buffersize)
+                    ipaddress_host = data_received6[0]
+                    
+                    if is_node_active(nome_host):
+                        #se il nodo e' attivo nel sistema lo porto nello stato di sospensione
+                        change_node_state(nome_host, stato_host)
+                    
+                    else:
+                        #se il nodo non e' mai stato attivato lo registro
+                        path_nodes = ''.join([FLAGS.list_nodes_path, "nodes"])
+                        out_file = open(path_nodes,"a")
+                        out_file.write("%s" % nome_host)
+                        out_file.write(" ")
+                        out_file.write("%s" % tipo_host)
+                        out_file.write(" ")
+                        out_file.write("%s" % stato_host)
+                        out_file.write(" ")
+                        out_file.write("%s" % wakeable_host)
+                        out_file.write(" ")
+                        out_file.write("%s" % macaddress_host)
+                        out_file.write(" ")
+                        out_file.write("%s" % ipaddress_host)
+                        out_file.write("\n")
+                        out_file.close()
+                    
+                    #se il nodo supporta il wake on lan invio il comando di spegnimento
+                    if wakeable_host == 'y':
+                        sleeponlan.sleep_on_lan(ipaddress_host)        
+        else:
+            #Sta eseguendo un COMPUTE NODE
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+            sock.sendto(host, (FLAGS.cluster_ip, 5386))
+            sock.sendto("compute", (FLAGS.cluster_ip, 5386))
+            if FLAGS.wakeable == True:
+                sock.sendto("suspended", (FLAGS.cluster_ip, 5386))
+                sock.sendto("y", (FLAGS.cluster_ip, 5386))
+            else:
+                sock.sendto("idle", (FLAGS.cluster_ip, 5386))
+                sock.sendto("n", (FLAGS.cluster_ip, 5386))         
+            sock.sendto(get_mac_address(FLAGS.flat_interface), (FLAGS.cluster_ip, 5386))
+            sock.sendto(FLAGS.my_ip, (FLAGS.cluster_ip, 5386))
+            sock.close()
+    except:
+        pass
